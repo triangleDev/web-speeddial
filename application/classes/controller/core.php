@@ -5,17 +5,13 @@ class Controller_Core extends  Controller_Template{
     // base template file
     // but remember, in parent class it will become View object
     public $template = 'layout/template';
-
     // for children it's recommended to change this prefixes
     // if needed IN CONSTRUCTOR (to not damage changes in parent class)
     protected $resource_prefixes = array('default');
-
     // check Acl access (true means do the check)
     protected $check_access = true;
-
-
+    
     public $view = null;
-
     // contains null or array with [directory/]controller/action parts
     // gathered in string in after() method
     private $filename = null;
@@ -169,7 +165,7 @@ class Controller_Core extends  Controller_Template{
     public function register_js_file($name, $check_file = false, $insert_from_beginning = false)
     {
         $file_name = 'media/js/'.$name;
-        Coffeescript::build_if_needed($file_name);
+//        Coffeescript::build_if_needed($file_name);
         $file_name .= '.js';
 
         if ($check_file && ! file_exists(DOCROOT.$file_name))
@@ -242,7 +238,7 @@ class Controller_Core extends  Controller_Template{
     protected function check_auto_render()
     {
         if ( ! $this->auto_render)
-            throw new Kohana_Exception("you have to render something (or redirect) only once per action");
+            throw new Kohana_Exception("You have to render something (or redirect) only once per action");
     }
 
     public function after()
