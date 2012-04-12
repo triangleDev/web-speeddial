@@ -1,0 +1,6 @@
+
+to get full version of application
+ 1. clone this repository
+    git@github.com:triangleDev/web-speeddial.git
+ 2. git submodule init
+ 3. git submodule update
