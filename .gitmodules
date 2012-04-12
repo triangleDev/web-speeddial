@@ -1,0 +1,3 @@
+[submodule "modules/kohana-RPC"]
+	path = modules/kohana-RPC
+	url = git@github.com:pussbb/Kohana-RPC.git
