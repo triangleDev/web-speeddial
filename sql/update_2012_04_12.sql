@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 12 2012 г., 23:46
+-- Время создания: Апр 12 2012 г., 23:49
 -- Версия сервера: 5.5.20
 -- Версия PHP: 5.3.10-1ubuntu2
 
@@ -32,6 +32,37 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` text NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sites`
+--
+
+CREATE TABLE IF NOT EXISTS `sites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `link` text NOT NULL,
+  `snap` text NOT NULL,
+  `category` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `global_id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` text NOT NULL,
+  `password` text NOT NULL,
+  `fb_id` text NOT NULL,
+  `vk_id` text NOT NULL,
+  `api_key` text NOT NULL,
+  PRIMARY KEY (`global_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
