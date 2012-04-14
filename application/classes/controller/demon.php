@@ -9,17 +9,30 @@ class Controller_Demon extends Controller {
             "speeddial.gettask" => array(
                 "function" => array($this,'gettask'),
                 "signature" => array(
-                    array($this->_rpc->xmlrpcArray)
+                    array($rpc->xmlrpcArray)
                 )
             )
         );
         $rpc->xmlRPCServer($methods);
     }
 
-    public function action_gettask()
+    public function gettask()
     {
         $model  = new Model_Screenshorts();
-        $model->demon_task();
+        $result = array();
+        foreach( $model->demon_task() as $item)
+        {
+           $data = array();
+           foreach( $item as $key => $val)
+           {
+               $type = 'string';
+               if (is_numeric($val))
+                    $type = 'int';
+               $data[$key] = new xmlrpcval($item['id'],$type);
+           }
+           $result[] =  new xmlrpcval($data,'struct');
+        }
+        return new xmlrpcresp(new xmlrpcval($result, 'array'));
 
     }
 
