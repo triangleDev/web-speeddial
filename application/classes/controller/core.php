@@ -96,7 +96,7 @@ class Controller_Core extends  Controller_Template{
         $this->template->favicon = $icon_name;
     }
 
-    public function set_title($title)
+    public function set_title($title = '')
     {
         if ( $this->template->title && !$title)
             return;
@@ -268,6 +268,7 @@ class Controller_Core extends  Controller_Template{
 //        $this->setup_meta_data();
 
         $this->register_resources_by_default();
+        $this->set_title();
         $this->template->content = $this->view->render();
         parent::after();
     }
