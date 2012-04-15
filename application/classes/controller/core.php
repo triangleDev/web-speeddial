@@ -29,13 +29,14 @@ class Controller_Core extends  Controller_Template{
     {
         parent::before();
         $this->set_language();
-        $this->check_access();
+   //     $this->check_access();
 
         $this->view = new View();
         $this->view->bind('controller', $this);
 
         $this->template->styles = array();
         $this->template->scripts = array();
+        $this->template->base_url = URL::base();
         foreach(array('content', 'keywords', 'description', 'title') as $property)
         {
             $this->template->set($property, '');

@@ -2,7 +2,7 @@
 
 return array(
     'default' => array(
-        'css' => array(),
+        'css' => array('media/css/style.css'),
         'js' => array(),
     ),
 );

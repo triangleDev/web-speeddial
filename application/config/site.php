@@ -3,6 +3,6 @@
 return array(
     "default_language" => 'en',
     "favicon" => "favicon.ico",
-    "title" => "Website title"
+    "title" => "SpeedDial"
 );
 
