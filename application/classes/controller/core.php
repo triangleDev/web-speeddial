@@ -15,7 +15,8 @@ class Controller_Core extends  Controller_Template{
     // contains null or array with [directory/]controller/action parts
     // gathered in string in after() method
     private $filename = null;
-
+    
+    
     protected function set_language()
     {
 //        $language = Language::get()->name;
@@ -33,10 +34,8 @@ class Controller_Core extends  Controller_Template{
 
         $this->view = new View();
         $this->view->bind('controller', $this);
-
         $this->template->styles = array();
-        $this->template->scripts = array();
-        $this->template->base_url = URL::base();
+        $this->template->scripts = array();        
         foreach(array('content', 'keywords', 'description', 'title') as $property)
         {
             $this->template->set($property, '');
