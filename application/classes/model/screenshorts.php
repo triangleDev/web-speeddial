@@ -29,9 +29,9 @@ class Model_Screenshorts extends Model
             return $result;
 
         $ids = Arr::pluck($result, 'id');
-        /*Db::update('screenshorts')
+        Db::update('screenshorts')
             ->set(array('status' => self::STATUS_IN_PROGRESS))
-            ->where('screenshorts.id', 'in', $ids)->execute();*/
+            ->where('screenshorts.id', 'in', $ids)->execute();
         return $result;
     }
 
