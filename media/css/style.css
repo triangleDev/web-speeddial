@@ -96,6 +96,7 @@ body{
     text-decoration: none;
     background-image: url("../images/header-bg.png");
     border-bottom:2px solid white;
+    text-shadow:1px 1px 1px black;
 }
 .site .screenshot{
     background:white;
@@ -103,4 +104,51 @@ body{
 }
 .site .screenshot img{
     width:200px;
+}
+.add_site{
+    width:300px;
+    height:163px;
+    background:white;
+    position:fixed;
+    left:40%;
+    top:30%;
+    box-shadow: 1px 1px 3px black;
+
+}
+.add_site .title{
+    width:280px;
+    padding:10px;
+    background-color:#373737;
+    background-image: url("../images/header-bg.png");
+    color:white;
+    text-shadow:1px 1px 1px black;
+}
+.add_site input[type=text]{
+    height:40px;
+    width:275px;
+    margin:10px 10px;
+    padding:0;
+    font-size:20px;
+    background:white;
+    border:2px solid #373737;
+    text-align:center;
+}
+input.addbtn {
+    height: 36px;
+    width: 280px;
+    background-color: #FFA721;
+    background-image: -moz-linear-gradient(center top , #FFA721, #E99107);
+    border: 1px solid #FFBF5B;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    font-family: base;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px #373737;
+    margin:10px 10px;
+    outline:none;
 }

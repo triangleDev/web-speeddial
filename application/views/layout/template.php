@@ -2,17 +2,18 @@
 <html>
     <head>
         <title><?php echo $title; ?></title>
-       <?php 
-       foreach($styles as $style){
-           echo "<link rel=\"stylesheet\" type=\"text/css\" href='". URL::base(TRUE, FALSE) . $style ."' >";
-       }
-       
-       
-       ;?>
+        <?php
+        foreach ($styles as $style) {
+            echo "<link rel=\"stylesheet\" type=\"text/css\" href='" . URL::base(TRUE, FALSE) . $style . "' >";
+        }
+
+
+        ;
+        ?>
     </head>
     <body>
         <div class="header">
-            <a href="<?php echo URL::base(TRUE, TRUE);?>">SpeedDial</a>
+            <a href="<?php echo URL::base(TRUE, TRUE); ?>">SpeedDial</a>
             <div class="menu">
                 <ul>
                     <li><a href="#">
@@ -26,7 +27,14 @@
             </div>
             <div class="clear"></div>
         </div>
-        <?php echo $content; ?>
+        <div class="add_site">
+            <div class="title">
+                Добавить сайт
+            </div>
+            <input type="text" value="Введите url"/>
+            <input type="button" class="addbtn" value="Добавить"/>
+        </div>
+<?php echo $content; ?>
     </body>
 </html>
 

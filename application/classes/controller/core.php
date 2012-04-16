@@ -1,6 +1,8 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
 
-class Controller_Core extends  Controller_Template{
+defined('SYSPATH') or die('No direct script access.');
+
+class Controller_Core extends Controller_Template {
 
     // base template file
     // but remember, in parent class it will become View object
@@ -10,65 +12,56 @@ class Controller_Core extends  Controller_Template{
     protected $resource_prefixes = array('default');
     // check Acl access (true means do the check)
     protected $check_access = true;
-    
     public $view = null;
     // contains null or array with [directory/]controller/action parts
     // gathered in string in after() method
     private $filename = null;
-    
-    
-    protected function set_language()
-    {
+
+    protected function set_language() {
 //        $language = Language::get()->name;
         // we have ru/en/de languages
         // but kohana expects ru-ru/en-en ...
         $language = "EN";
-        I18n::lang($language.'-'.$language);
+        I18n::lang($language . '-' . $language);
     }
 
-    public function before()
-    {
+    public function before() {
         parent::before();
         $this->set_language();
-   //     $this->check_access();
+        //     $this->check_access();
 
         $this->view = new View();
         $this->view->bind('controller', $this);
         $this->template->styles = array();
-        $this->template->scripts = array();        
-        foreach(array('content', 'keywords', 'description', 'title') as $property)
-        {
+        $this->template->scripts = array();
+        foreach (array('content', 'keywords', 'description', 'title') as $property) {
             $this->template->set($property, '');
         }
     }
 
-    public function set_filename($filename)
-    {
-        if( ! $filename)
+    public function set_filename($filename) {
+        if (!$filename)
             return;
         $this->filename = explode('/', $filename);
     }
 
-    protected function check_access()
-    {
-        if ( ! $this->request->is_initial() ||
-             ! $this->check_access ||
-             Acl::instance()->allowed($this))
+    protected function check_access() {
+        if (!$this->request->is_initial() ||
+                !$this->check_access ||
+                Acl::instance()->allowed($this))
             return;
 
         // we are here because access is denied
         // redirect to not_logged_in if needed
-        if ( $this->request->is_ajax())
+        if ($this->request->is_ajax())
             throw new HTTP_Exception_403();
 
         // rememeber the url
         Cookie::set(
-            'return_url',
-            Url::path('root').$this->request->url()
+                'return_url', Url::path('root') . $this->request->url()
         );
 
-        if ( ! Auth::instance()->logged_in())
-        {
+        if (!Auth::instance()->logged_in()) {
             $this->redirect(array('user_session/not_logged_in'));
             exit;
         }
@@ -79,106 +72,86 @@ class Controller_Core extends  Controller_Template{
         exit;
     }
 
-
-    public function set_keywords($keywords)
-    {
+    public function set_keywords($keywords) {
         $this->template->keywords = $keywords;
     }
 
-    public function set_description($description)
-    {
+    public function set_description($description) {
         $this->template->description = $description;
     }
 
-    public function set_favicon($icon_name)
-    {
+    public function set_favicon($icon_name) {
         $this->template->favicon = $icon_name;
     }
 
-    public function set_title($title = '')
-    {
-        if ( $this->template->title && !$title)
+    public function set_title($title = '') {
+        if ($this->template->title && !$title)
             return;
         $default_title = Kohana::$config->load('site.title');
         $delimiter = $title ? ' | ' : '';
-        if ($default_title)
-        {
-            $title .= $delimiter.$default_title;
+        if ($default_title) {
+            $title .= $delimiter . $default_title;
         }
         $this->template->title = $title;
     }
 
-    public function current_request_structure()
-    {
+    public function current_request_structure() {
         return array_filter(array(
-            $this->request->directory(),
-            $this->request->controller(),
-            $this->request->action(),
-        ));
+                    $this->request->directory(),
+                    $this->request->controller(),
+                    $this->request->action(),
+                ));
     }
 
     // registeres the needed resources from config file
-    public function register_resources($identifier)
-    {
-        $media = Kohana::$config->load('media.'.$identifier);
+    public function register_resources($identifier) {
+        $media = Kohana::$config->load('media.' . $identifier);
         // reverse because we're not appending, but prepending
         $files = array_reverse(
-            Arr::get($media, 'css', array())
+                Arr::get($media, 'css', array())
         );
-        foreach($files as $file => $media_type)
-        {
+        foreach ($files as $file => $media_type) {
             $this->register_css_file($file, $media_type, false, true);
         }
 
         // reverse because we're not appending, but prepending
         $files = array_reverse(
-            Arr::get($media, 'js', array())
+                Arr::get($media, 'js', array())
         );
 
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $this->register_js_file($file, false, true);
         }
     }
 
-    public function register_css_file($name, $media = '', $check_file = false, $insert_from_beginning = false)
-    {
-        $file_name = 'media/css/'.$name.'.css';
-        if ($check_file && ! file_exists(DOCROOT.$file_name))
+    public function register_css_file($name, $media = '', $check_file = false, $insert_from_beginning = false) {
+        $file_name = 'media/css/' . $name . '.css';
+        if ($check_file && !file_exists(DOCROOT . $file_name))
             return;
         if (array_key_exists($file_name, $this->template->styles))
             return;
-        if ( ! $insert_from_beginning)
-        {
-            $this->template->styles[URL::base(TRUE, TRUE).$file_name] = $media;
-        }
-        else
-        {
+        if (!$insert_from_beginning) {
+            $this->template->styles[URL::base(TRUE, TRUE) . $file_name] = $media;
+        } else {
             Arr::unshift(
-                $this->template->styles,
-                URL::base(TRUE, TRUE).$file_name,
-                $media
+                    $this->template->styles, URL::base(TRUE, TRUE) . $file_name, $media
             );
         }
     }
 
-    public function register_js_file($name, $check_file = false, $insert_from_beginning = false)
-    {
-        $file_name = 'media/js/'.$name;
+    public function register_js_file($name, $check_file = false, $insert_from_beginning = false) {
+        $file_name = 'media/js/' . $name;
 //        Coffeescript::build_if_needed($file_name);
         $file_name .= '.js';
 
-        if ($check_file && ! file_exists(DOCROOT.$file_name))
+        if ($check_file && !file_exists(DOCROOT . $file_name))
             return;
-        $resource_name = URL::base(TRUE, TRUE).$file_name;
+        $resource_name = URL::base(TRUE, TRUE) . $file_name;
 
-        if ($insert_from_beginning)
-        {
+        if ($insert_from_beginning) {
             array_unshift($this->template->scripts, $resource_name);
-        }
-        else
-        {
-            $this->template->scripts []= $resource_name;
+        } else {
+            $this->template->scripts [] = $resource_name;
         }
         $this->template->scripts = array_unique($this->template->scripts);
     }
@@ -186,73 +159,62 @@ class Controller_Core extends  Controller_Template{
     // tries to add default files
     // in format directory.controller.action.js
     // and directory.controller.action.css
-    private function register_resources_by_default($request_struct = array())
-    {
+    private function register_resources_by_default($request_struct = array()) {
         $file_name = implode('.', $this->current_request_structure());
         $this->register_css_file($file_name, '', TRUE);
         $this->register_js_file($file_name, TRUE);
     }
 
-    public function is_delete()
-    {
+    public function is_delete() {
         return $this->request->method() == 'DELETE';
     }
 
-    public function render_partial($file = '', $locals=array())
-    {
+    public function render_partial($file = '', $locals = array()) {
         $this->check_auto_render();
         $this->auto_render = false;
         $this->set_filename($file);
-        foreach ($locals as $key => $value)
-        {
+        foreach ($locals as $key => $value) {
             $this->view->set($key, $value);
         }
         $this->set_view_filename();
         return $this->response->body($this->view->render());
     }
 
-    public function render_nothing()
-    {
+    public function render_nothing() {
         $this->render_partial('core/empty');
     }
 
-    public function redirect($url, $code = 302)
-    {
+    public function redirect($url, $code = 302) {
         $this->check_auto_render();
         $this->auto_render = FALSE;
         $this->request->redirect(Url::path($url, $this), $code);
     }
 
-    public function render_json($data)
-    {
+    public function render_json($data) {
         $this->check_auto_render();
         $this->auto_render = false;
         $json = json_encode($data);
         $this->response->headers('Content-Type', 'application/json')
-            ->send_headers()
-            ->body($json);
+                ->send_headers()
+                ->body($json);
     }
 
     // checks if auto_render already false, it means
     // you tried to render several views in one action
-    protected function check_auto_render()
-    {
-        if ( ! $this->auto_render)
+    protected function check_auto_render() {
+        if (!$this->auto_render)
             throw new Kohana_Exception("You have to render something (or redirect) only once per action");
     }
 
-    public function after()
-    {
-        if ( ! $this->auto_render)
-        {
+    public function after() {
+        if (!$this->auto_render) {
             parent::after();
             return;
         }
 
         $this->set_view_filename();
 
-        foreach ($this->resource_prefixes as $prefix)
-        {
+        foreach ($this->resource_prefixes as $prefix) {
             $this->register_resources($prefix);
         }
 
@@ -262,7 +224,6 @@ class Controller_Core extends  Controller_Template{
 //        {
 //            $this->set_favicon($favicon);
 //        }
-
         // sets title, meta keywords/description
 //        $this->setup_meta_data();
 
@@ -277,16 +238,13 @@ class Controller_Core extends  Controller_Template{
 //    {
 //        Model_Page_Parameter::fill($this);
 //    }
-
     // finally set the view filename (not possible to change back)
-    protected function set_view_filename()
-    {
-        if ( ! $this->filename)
-        {
+    protected function set_view_filename() {
+        if (!$this->filename) {
             // i know it's bad, but we have to change $this->filename
             // in unified way
             $this->set_filename(
-                implode('/', $this->current_request_structure())
+                    implode('/', $this->current_request_structure())
             );
         }
         $this->view->set_filename(implode('/', $this->filename));

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Model_Screenshorts extends Model
+class Model_Screenshorts extends ORM
 {
     const STATUS_NEED_SCREENSHORT = 0;
     const STATUS_IN_PROGRESS = 1;
