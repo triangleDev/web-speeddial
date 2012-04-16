@@ -47,6 +47,12 @@ class Controller_Demon extends Controller {
         }
         $im = imagecreatefromstring(base64_decode($image));
 
+        $url_title = Arr::get($params, 'url_title');
+        if ( $url_title)
+        {
+            Model_Sites::update_title_if_empty(Arr::get($params,'url_id',0),$url_title);
+        }
+
         $image_file = DOCROOT .'screenshorts'.DIRECTORY_SEPARATOR . Arr::get($params, 'file');
         $ext = Arr::get($params,'ext');
         if ($ext == "png")
