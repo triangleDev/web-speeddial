@@ -164,9 +164,8 @@ class Controller_Core extends  Controller_Template{
 
     public function register_js_file($name, $check_file = false, $insert_from_beginning = false)
     {
-        $file_name = 'media/js/'.$name;
-//        Coffeescript::build_if_needed($file_name);
-        $file_name .= '.js';
+        CoffeeScript::build_if_needed($name);
+        $file_name .= 'media/js/'.$name.'.js';
 
         if ($check_file && ! file_exists(DOCROOT.$file_name))
             return;
@@ -257,11 +256,11 @@ class Controller_Core extends  Controller_Template{
         }
 
         //set favicon (name from config: site.favicon)
-//        $favicon = Kohana::$config->load('site.favicon', '');
-//        if ($favicon)
-//        {
-//            $this->set_favicon($favicon);
-//        }
+        $favicon = Kohana::$config->load('site.favicon', '');
+        if ($favicon)
+        {
+            $this->set_favicon($favicon);
+        }
 
         // sets title, meta keywords/description
 //        $this->setup_meta_data();
@@ -284,6 +283,7 @@ class Controller_Core extends  Controller_Template{
         {
             // i know it's bad, but we have to change $this->filename
             // in unified way
+
             $this->set_filename(
                 implode('/', $this->current_request_structure())
             );
