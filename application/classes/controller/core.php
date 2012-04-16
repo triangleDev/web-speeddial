@@ -150,13 +150,13 @@ class Controller_Core extends  Controller_Template{
             return;
         if ( ! $insert_from_beginning)
         {
-            $this->template->styles[URL::base(TRUE, TRUE).$file_name] = $media;
+            $this->template->styles[URL::base(TRUE, FALSE).$file_name] = $media;
         }
         else
         {
             Arr::unshift(
                 $this->template->styles,
-                URL::base(TRUE, TRUE).$file_name,
+                URL::base(TRUE, FALSE).$file_name,
                 $media
             );
         }
@@ -164,8 +164,8 @@ class Controller_Core extends  Controller_Template{
 
     public function register_js_file($name, $check_file = false, $insert_from_beginning = false)
     {
-        CoffeeScript::build_if_needed($name);
-        $file_name .= 'media/js/'.$name.'.js';
+     //   CoffeeScript::build_if_needed($name);
+        $file_name = '';//media/js/'.$name.'.js';
 
         if ($check_file && ! file_exists(DOCROOT.$file_name))
             return;
