@@ -118,6 +118,6 @@ set_exception_handler(array('Error', 'handler'));
 
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'main',
 		'action'     => 'index',
 	));

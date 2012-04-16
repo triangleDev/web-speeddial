@@ -156,7 +156,7 @@ class Controller_Core extends  Controller_Template{
         {
             Arr::unshift(
                 $this->template->styles,
-                URL::base(TRUE, TRUE).$file_name,
+                URL::base(TRUE, FALSE).$file_name,
                 $media
             );
         }
@@ -164,6 +164,7 @@ class Controller_Core extends  Controller_Template{
 
     public function register_js_file($name, $check_file = false, $insert_from_beginning = false)
     {
+
         CoffeeScript::build_if_needed($name);
         $file_name = 'media/js/'.$name.'.js';
 
