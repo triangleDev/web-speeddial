@@ -50,8 +50,13 @@ class Controller_Demon extends Controller {
         $url_title = Arr::get($params, 'url_title');
         if ( $url_title)
         {
-            Model_Sites::update_title_if_empty(Arr::get($params,'url_id',0),$url_title);
+            Model_Sites::update_title_if_empty(Arr::get($params,'url_id'),$url_title);
         }
+
+        Model_Sites::update_meta(Arr::get($params,'url_id'),array(
+            'keywords' => Arr::get($params,'url_keywords'),
+            'description' => Arr::get($params,'url_description'),
+        ));
 
         $image_file = DOCROOT .'screenshorts'.DIRECTORY_SEPARATOR . Arr::get($params, 'file');
         $ext = Arr::get($params,'ext');
@@ -64,6 +69,7 @@ class Controller_Demon extends Controller {
         {
             imagejpeg($im,$image_file , 100);
         }
+
         Model_Screenshorts::demon_sucess(array(
             'id' => Arr::get($params, 'id'),
             'file' => Arr::get($params, 'file'),

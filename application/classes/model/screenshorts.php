@@ -30,7 +30,10 @@ class Model_Screenshorts extends Model
 
         $ids = Arr::pluck($result, 'id');
         Db::update('screenshorts')
-            ->set(array('status' => self::STATUS_IN_PROGRESS))
+            ->set(array(
+                'status' => self::STATUS_IN_PROGRESS,
+                'grab_date' => DB::expr('NOW()')
+            ))
             ->where('screenshorts.id', 'in', $ids)->execute();
         return $result;
     }
