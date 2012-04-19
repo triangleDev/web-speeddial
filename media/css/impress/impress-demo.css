@@ -66,7 +66,7 @@
 
 .step {
     position: relative;
-    width: 900px;
+    width: 700px;
     padding: 40px;
     margin: 20px auto;
 
@@ -110,8 +110,8 @@
 .slide {
     display: block;
 
-    width: 900px;
-    height: 700px;
+    width: 700px;
+    max-height: 600px;
     padding: 40px 60px;
 
     background-color: white;
@@ -301,7 +301,7 @@
     Just make sure you don't blindly copy this approach.
 */
 #source {
-    width: 700px;
+    width: 500px;
     padding-bottom: 300px;
     
     /* Yoda Icon :: Pixel Art from Star Wars http://www.pixeljoint.com/pixelart/1423.htm */
@@ -602,3 +602,9 @@
     Thanks for reading. I hope you enjoyed it at least as much as I enjoyed writing it
     for you.
 */
+
+.slide-control{
+    position: relative;
+    float: right;
+    z-index: 9999999;
+}
