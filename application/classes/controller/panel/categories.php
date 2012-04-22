@@ -7,7 +7,7 @@ class Controller_Panel_Categories extends Controller_Core {
 
     }
 
-    public function action_add()
+    public function action_new()
     {
         if ( $this->is_ajax())
             return $this->render_partial('panel/categories/form');

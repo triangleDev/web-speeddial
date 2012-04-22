@@ -5,8 +5,22 @@
     $('.dropdown-toggle').dropdown();
     sidebar = $('.panel-content .sidebar');
     panelContent = $('.panel-content .body-content');
-    $.fn.form_controll = function(options) {
+    $.fn.actionControll = function(options) {
+      var self, url;
       if (options == null) options = {};
+      url = options.url || $(this).attr('href' || null);
+      if (!url) return;
+      self = $(this);
+      self.pseudoAjaxLoadingProgress();
+      return $.ajax({
+        url: url,
+        success: function(data) {
+          return self.html(data);
+        },
+        error: function() {
+          return self.inlineAlert();
+        }
+      });
     };
     showPanel = function() {
       sidebar.show(500);
@@ -21,7 +35,14 @@
       e.preventDefault();
       if (!sidebar.is(':visible')) return showPanel();
     });
-    return $('div.adding-form').pseudoAjaxLoadingProgress();
+    return $('a.add-category').on('click', function(e) {
+      var self;
+      e.preventDefault();
+      self = $(this);
+      return $('div.adding-form').actionControll({
+        url: self.attr('href')
+      });
+    });
   });
 
 }).call(this);

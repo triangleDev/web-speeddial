@@ -10,7 +10,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-screenshot"></i>add website</a></li>
-                        <li><a href="#" class="add-category"><i class="icon-folder-open"></i>add category</a></li>
+                        <li><a href="<?php echo Url::site('panel/categories/new');?>" class="add-category"><i class="icon-folder-open"></i>add category</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="show_categories"><i class="icon-folder-close"></i>categories</a></li>
                         <li class="divider"></li>
