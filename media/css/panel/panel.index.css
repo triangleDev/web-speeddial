@@ -1,0 +1,20 @@
+
+.panel-content .sidebar,
+.panel-content .body-content{
+    background: #EEE;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 10px;
+    text-indent: 10px;
+    position: relative;
+    float: left;
+
+}
+.panel-content .sidebar {
+    width: 26%;
+    max-width: 26%;
+}
+.panel-content .body-content{
+    min-width: 66%;
+    width: auto;
+}

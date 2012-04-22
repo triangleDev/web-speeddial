@@ -1,34 +1,18 @@
 <!doctype html>
+<html lang="'en'">
+<head>
+    <meta charset="utf-8">
 <?php
-echo HTML::tag(array(
-    'html',
-    'lang' => 'en',
-), FALSE), PHP_EOL;
-
-echo "<head>", PHP_EOL;
-echo HTML::tag(array('meta', 'charset' => 'utf-8')), PHP_EOL;
-
 echo '<title>', $title, '</title>', PHP_EOL;
 
 if ($favicon) {
-    echo HTML::tag(
-        array(
-            'link',
-            'rel' => 'shortcut icon',
-            'href' => URL::base(TRUE, FALSE) . $favicon,
-            'type' => 'image/x-icon',
-        )
-    ), PHP_EOL;
+    echo '<link rel ="shortcut icon" href="' .URL::base(TRUE, FALSE) . $favicon. '" type="image/x-icon" />';
 }
 
 foreach (array('keywords', 'description') as $property) {
     if (!$property)
         continue;
-    echo HTML::tag(array(
-        'meta',
-        'name' => $property,
-        'content' => $$property,
-    )), PHP_EOL;
+    echo '<meta name="'. $property.'" content="' .$property.'"/>';
 }
 
 foreach ($styles as $file => $type) {

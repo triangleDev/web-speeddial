@@ -13,9 +13,15 @@ class CoffeeScript
             return;
 
         
-        $media_js = DOCROOT.'media/js/' . pathinfo($name, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
+        $output_dir = DOCROOT.'media/js/' . pathinfo($name, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
 
-        $output = shell_exec('coffee -l -o '. $media_js .' -c '.$cs_name.'  2>&1');
+        if ( ! file_exists($output_dir) && ! is_dir($output_dir))
+        {
+            mkdir($output_dir);
+            chmod($output_dir, 0777);
+        }
+
+        $output = shell_exec('coffee -l -o '. $output_dir .' -c '.$cs_name.'  2>&1');
 
         if ( ! $output)
             return;

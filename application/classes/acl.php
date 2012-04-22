@@ -2,8 +2,11 @@
 
 class ACL extends Singleton{
 
-    public function allowed($controller_instance, $user=null)
+    public function allowed($core, $user=null)
     {
+        //$request
+        ///echo '<pre>';
+        //var_dump($core);exit;
         return TRUE;
     }
 }

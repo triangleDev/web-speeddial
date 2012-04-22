@@ -2,6 +2,11 @@
 
 class Controller_Welcome extends Controller_Core {
 
+    public function before()
+    {
+        Auth::instance()->logout();
+        parent::before();
+    }
 	public function action_index()
 	{
         $this->register_css_file('impress/impress-demo');

@@ -184,11 +184,14 @@ class Controller_Core extends  Controller_Template{
     }
 
     // tries to add default files
-    // in format directory.controller.action.js
-    // and directory.controller.action.css
+    // in format directory/controller.action.js
+    // and directory/controller.action.css
     private function register_resources_by_default($request_struct = array())
     {
-        $file_name = implode('.', $this->current_request_structure());
+        $structure = $this->current_request_structure();
+        $directory = NULL;
+        count($structure) < 3 ?: $directory = array_shift($structure);
+        $file_name = (! $directory? '': $directory .DIRECTORY_SEPARATOR ) .  implode('.', $structure);
         $this->register_css_file($file_name, '', TRUE);
         $this->register_js_file($file_name, TRUE);
     }
@@ -220,7 +223,7 @@ class Controller_Core extends  Controller_Template{
     {
         $this->check_auto_render();
         $this->auto_render = FALSE;
-        $this->request->redirect(Url::path($url, $this), $code);
+        $this->request->redirect($url, $code);
     }
 
     public function render_json($data)
