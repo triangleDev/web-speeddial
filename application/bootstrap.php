@@ -116,8 +116,9 @@ Kohana::modules(array(
  */
 set_exception_handler(array('Error', 'handler'));
 
-Route::set('panel', 'panel(/<controller>(/<action>(/<id>)))')
-    ->defaults(array(
+Route::set('panel', 'panel(/<controller>(/<action>(/<id>)))',array(
+        'id' => '\d+',
+    ))->defaults(array(
     'directory' => 'panel',
     'controller' => 'panel',
     'action'     => 'index',

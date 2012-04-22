@@ -4,6 +4,7 @@
     padding: 5px;
     margin: 5px;
 }
+
 .progress-info {
     text-align: center;
     position: relative;
@@ -11,6 +12,7 @@
     color: #000000;
     top: -19px;
 }
+
 .panel-content .sidebar,
 .panel-content .body-content{
     background: #EEE;

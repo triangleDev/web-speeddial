@@ -201,6 +201,11 @@ class Controller_Core extends  Controller_Template{
         return $this->request->method() == 'DELETE';
     }
 
+    public function is_ajax()
+    {
+        return $this->request->is_ajax();
+    }
+
     public function render_partial($file = '', $locals=array())
     {
         $this->check_auto_render();

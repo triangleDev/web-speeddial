@@ -9,7 +9,8 @@ return array(
         ),
         'js' => array(
             'jquery/jquery.min',
-            'bootstrap/bootstrap.min'
+            'bootstrap/bootstrap.min',
+            'lib/pseudo_ajax_load_progress'
         ),
     ),
 );
