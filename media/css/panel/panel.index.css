@@ -1,4 +1,16 @@
 
+.summary-info {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+}
+.progress-info {
+    text-align: center;
+    position: relative;
+    z-index: 99999;
+    color: #000000;
+    top: -19px;
+}
 .panel-content .sidebar,
 .panel-content .body-content{
     background: #EEE;
@@ -10,6 +22,7 @@
     float: left;
 
 }
+
 .panel-content .sidebar {
     width: 26%;
     max-width: 26%;
