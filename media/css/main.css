@@ -10,6 +10,6 @@ body {
     background:         radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
 }
 
-body > .container{
-       padding-top: 60px;
+.navbar-inner{
+  border-radius: 0px ;
 }

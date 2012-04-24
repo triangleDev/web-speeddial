@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top ">
+<div class="navbar navbar-top ">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="<?echo URL::site();?>">Project name</a>
