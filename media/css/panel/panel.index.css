@@ -8,7 +8,7 @@
 .progress-info {
     text-align: center;
     position: relative;
-    z-index: 99999;
+    z-index: 99;
     color: #000000;
     top: -19px;
 }

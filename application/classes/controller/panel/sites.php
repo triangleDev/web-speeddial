@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Panel_Categories extends Controller_Core {
+class Controller_Panel_Sites extends Controller_Core {
 
     public function action_index()
     {
@@ -10,7 +10,7 @@ class Controller_Panel_Categories extends Controller_Core {
     public function action_new()
     {
         if ( $this->is_ajax())
-            return $this->render_partial('panel/categories/form');
+            return $this->render_partial('panel/sites/form');
 
     }
 
@@ -25,7 +25,7 @@ class Controller_Panel_Categories extends Controller_Core {
             throw new Kohana_HTTP_Exception_403();
 
         $id = $this->request->param('id');
-        $model  = new Model_Categories();
+        $model  = new Model_Sites();
         $model->delete($id);
     }
 }
