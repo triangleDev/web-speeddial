@@ -200,6 +200,7 @@ class Model extends Kohana_Model
         {
             case 'insert':
                 $this->last_inserted_id = $result[0];
+                $result = TRUE;
                 break;
             default:
                 break;

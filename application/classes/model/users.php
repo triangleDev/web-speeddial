@@ -3,10 +3,6 @@
 class Model_Users extends Model
 {
 
-    public function validate_login()
-    {
-
-    }
     public function login()
     {
 
@@ -28,8 +24,9 @@ class Model_Users extends Model
             $this->add_error('user', __('already_exists'));
             return FALSE;
         }
+        $this->password = md5($this->password);
 
         $result = $this->exec();
-        var_dump($result);
+        return $result;
     }
 }

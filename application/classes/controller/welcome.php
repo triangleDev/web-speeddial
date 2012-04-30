@@ -34,14 +34,19 @@ class Controller_Welcome extends Controller_Core {
 
     public function action_register()
     {
-        $model = new Model_Users;
-        $model->login = 'pussbb';
-        $model->email = 'pussbb@gmai.com';
-        $model->password = '123456';
+        $this->view->errors = array();
+
+        if ( ! $_REQUEST)
+            return ;
+
+        $model = new Model_Users(array(
+            'login' => Arr::get($_REQUEST, 'user_name'),
+            'email' => Arr::get($_REQUEST, 'email'),
+            'password' => Arr::get($_REQUEST, 'pswd'),
+        ));
         if ( ! $model->register())
         {
-            var_dump($model->errors());
+            $this->view->errors = $model->errors();
         }
-        $this->render_nothing();
     }
 } // End Welcome
