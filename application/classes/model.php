@@ -9,6 +9,8 @@ class Model extends Kohana_Model
     protected $db_query = NULL;
     protected $query_type = NULL;
     protected $query_str = NULL;
+    protected $last_inserted_id = NULL;
+    private $errors = NULL;
 
     public function __construct($params = NULL)
     {
@@ -20,6 +22,7 @@ class Model extends Kohana_Model
         {
             $this->data[$this->primary_key] = $params;
         }
+
         $kclass_pieces = preg_split('/(?=[A-Z])/', get_called_class());
         $this->db_table = strtolower( end($kclass_pieces));
     }
@@ -97,6 +100,40 @@ class Model extends Kohana_Model
         return $this->db_query;
     }
 
+    public function errors()
+    {
+        return $this->errors;
+    }
+
+    public function add_error($key, $msg)
+    {
+        $this->errors[$key] = $msg;
+    }
+
+    public function exists($where)
+    {
+        $query = DB::select()->from($this->db_table);
+        $fields = $where;
+        if ( ! Arr::is_assoc($where))
+        {
+            $fields = array();
+            foreach($where as $field)
+            {
+                $fields[$field] = $this->$field;
+            }
+        }
+        $query->where_open();
+        foreach($fields as $key => $value)
+        {
+           $query->where($key, '=', $value);
+        }
+        $query->where_close();
+        $result = $query->as_assoc()->execute();
+        if ( $result->count() > 0)
+            return TRUE;
+        return FALSE;
+    }
+
     protected function before_exec()
     {
 
@@ -124,7 +161,8 @@ class Model extends Kohana_Model
         }
     }
 
-    private function get_private_properties($obj){
+    private function get_private_properties($obj)
+    {
         $props = array();
         $reflecionObject = new ReflectionObject($obj);
         foreach ($reflecionObject->getProperties(ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED) as $propiedad)
@@ -161,7 +199,7 @@ class Model extends Kohana_Model
         switch ($this->query_type)
         {
             case 'insert':
-
+                $this->last_inserted_id = $result[0];
                 break;
             default:
                 break;

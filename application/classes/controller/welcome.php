@@ -26,7 +26,7 @@ class Controller_Welcome extends Controller_Core {
 
     public function action_login()
     {
-    echo 'fffdf';
+       echo 'fffdf';
        $model = Model_Users::find(9);
        var_dump($model);
        exit;
@@ -38,7 +38,10 @@ class Controller_Welcome extends Controller_Core {
         $model->login = 'pussbb';
         $model->email = 'pussbb@gmai.com';
         $model->password = '123456';
-        $model->register();
+        if ( ! $model->register())
+        {
+            var_dump($model->errors());
+        }
         $this->render_nothing();
     }
 } // End Welcome
