@@ -21,7 +21,7 @@ return array
 			'hostname'   => 'localhost',
 			'database'   => 'speeddial',
 			'username'   => 'root',
-			'password'   => FALSE,
+			'password'   => 'root',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
@@ -40,10 +40,11 @@ return array
 			 * string   password    database password
 			 * boolean  persistent  use persistent connections?
 			 */
-			'dsn'        => 'mysql:host=localhost;dbname=kohana',
-			'username'   => 'root',
-			'password'   => 'r00tdb',
-			'persistent' => FALSE,
+			'dsn'        => 'mysql:host=localhost:3600;dbname=kohana',
+			'database'   => 'speeddial',
+                        'username'   => 'root',
+                        'password'   => FALSE,
+                        'persistent' => FALSE,
 		),
 		/**
 		 * The following extra options are available for PDO:
