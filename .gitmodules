@@ -1,3 +1,6 @@
 [submodule "modules/kohana-RPC"]
 	path = modules/kohana-RPC
 	url = git@github.com:pussbb/Kohana-RPC.git
+[submodule "modules/Kohana-my-base"]
+	path = modules/Kohana-my-base
+	url = git@github.com:pussbb/Kohana-my-base.git
