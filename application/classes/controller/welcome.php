@@ -28,7 +28,8 @@ class Controller_Welcome extends Controller_Core {
     {
        echo 'fffdf';
        $model = Model_Users::find(9);
-       var_dump($model);
+
+       var_dump($model->login);
        exit;
     }
 

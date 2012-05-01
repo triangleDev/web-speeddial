@@ -55,7 +55,7 @@ class Model extends Kohana_Model
     {
         $kclass_name = get_called_class();
         $kclass = new $kclass_name();
-        $kclass->select();
+        $kclass->select()->limit(1);
         if ( is_numeric($arguments))
         {
             $kclass->where(array($kclass->primary_key => $arguments));
@@ -65,7 +65,9 @@ class Model extends Kohana_Model
             $kclass->where($arguments);
         }
 
-        $kclass->exec();
+        $result = $kclass->exec();
+        if ( ! $result->valid())
+            throw new Kohana_Exception('record_not_found');
         return $kclass;
     }
 
@@ -201,6 +203,21 @@ class Model extends Kohana_Model
             case 'insert':
                 $this->last_inserted_id = $result[0];
                 $result = TRUE;
+                break;
+            case 'select':
+                if ($result->count() === 1){
+                    $item  = $result->current();
+                    if ( ! Arr::is_array($item) && ! Arr::is_assoc($item))
+                        break;
+
+                    foreach($item as $key => $value) {
+                        $this->$key = $value;
+                    }
+                }
+                else {
+                    $this->total_count = $result->count();
+                    $this->records = $result->as_array();
+                }
                 break;
             default:
                 break;
