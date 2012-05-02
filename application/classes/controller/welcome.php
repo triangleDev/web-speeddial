@@ -26,11 +26,25 @@ class Controller_Welcome extends Controller_Core {
 
     public function action_login()
     {
-       echo 'fffdf';
-       $model = Model_Users::find(9);
+//        $model = Model_Users::find(9);
+//
+//        var_dump($model->login);
+        $this->view->errors = array();
 
-       var_dump($model->login);
-       exit;
+        if ( ! $_REQUEST)
+            return ;
+
+        $model = new Model_Users(array(
+            'email' => Arr::get($_REQUEST, 'email'),
+            'password' => Arr::get($_REQUEST, 'pswd'),
+        ));
+        if ( ! $model->validate_login() || ! $model->login())
+        {
+            $this->view->errors = $model->errors();
+        }
+        else {
+            $this->redirect(URL::site('panel/'));
+        }
     }
 
     public function action_register()

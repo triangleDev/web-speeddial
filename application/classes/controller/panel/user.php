@@ -4,7 +4,7 @@ class Controller_Panel_User extends Controller_Core {
 
     public function action_logout()
     {
-        Session::instance()->destroy();
+        Session::instance()->regenerate();
         $this->redirect('/');
     }
 
@@ -12,7 +12,7 @@ class Controller_Panel_User extends Controller_Core {
     {
       $this->render_nothing();
     }
-    
+
     public function action_settings()
     {
       $this->render_nothing();

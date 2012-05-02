@@ -1,3 +1,44 @@
+
+<?php
+$general = Arr::get($errors, 'general');
+
+if ( $general)
+{
+    echo '<div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+                <h4 class="alert-heading">'.__('warning').'!</h4>
+                '.$general.'
+                </div>';
+}
+
+$form = new Pretty_Form(array(
+    'errors' => $errors,
+    'template' => 'twitter_bootstrap',
+));
+echo $form->open( Url::site('welcome/login'), array('class' => 'form-horizontal'));
+echo $form->input(array(
+    'name' => 'email',
+    'template' => 'input_for_mail',
+    'label' => __('email_address'),
+    'attr' => array( 'class' => 'input-xlarge'),
+    'info' => __('valid_email_adrress')
+));
+
+echo $form->password(array(
+    'name' => 'pswd',
+    'label' => __('password'),
+    'attr' => array( 'class' => 'input-xlarge')
+));
+
+
+echo $form->form_action(array(
+    'buttons' => array(
+        array('submit', __('login'), array( 'class' => 'btn btn-primary', 'type' => 'submit'))
+    )
+));
+echo $form->close();
+return;
+?>
 <form class="form-horizontal">
     <fieldset>
         <legend>Log in </legend>

@@ -1,8 +1,5 @@
 
 <div class="reg-form">
-
-
-
 <?php
 $general = Arr::get($errors, 'general');
 

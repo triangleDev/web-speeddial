@@ -5,9 +5,30 @@ class Model_Users extends Model
 
     public function login()
     {
-
+        $this->password = md5($this->password);
+        $this->select();
+        $this->where(array('email', 'password'));
+        $result = $this->exec();
+        if ( ! $result->valid())
+        {
+            $this->add_error('general', __('user_not_found_or_wrong_password'));
+            return FALSE;
+        }
+        Auth::instance()->authorize($this);
+        return TRUE;
     }
 
+    public function validate_login()
+    {
+        if ( ! Valid::email($this->email))
+            $this->add_error('email', __('must_be_valid_email'));
+        if ( ! Valid::not_empty($this->password))
+            $this->add_error('pswd', __('must_be_your_valid_password'));
+        if ($this->errors())
+            return FALSE;
+
+        return TRUE;
+    }
     public  function validate_registration()
     {
         if ( ! Valid::not_empty($this->login))
@@ -31,6 +52,7 @@ class Model_Users extends Model
         }
         return TRUE;
     }
+
     public function register()
     {
         $this->insert(array('login', 'email', 'password', 'api_key'));
