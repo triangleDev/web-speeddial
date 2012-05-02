@@ -44,10 +44,16 @@ class Controller_Welcome extends Controller_Core {
             'login' => Arr::get($_REQUEST, 'user_name'),
             'email' => Arr::get($_REQUEST, 'email'),
             'password' => Arr::get($_REQUEST, 'pswd'),
+            'terms_of_use' => Arr::get($_REQUEST, 'terms_of_use'),
+            'pswd_confirmation' => Arr::get($_REQUEST, 'pswd_confirmation'),
         ));
-        if ( ! $model->register())
+        if ( ! $model->validate_registration() || ! $model->register())
         {
             $this->view->errors = $model->errors();
         }
+        else {
+            $this->redirect(URL::site('welcome/login'));
+        }
+
     }
 } // End Welcome

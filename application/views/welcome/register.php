@@ -1,14 +1,30 @@
+
+<div class="reg-form">
+
+
+
 <?php
+$general = Arr::get($errors, 'general');
+
+if ( $general)
+{
+    echo '<div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+                <h4 class="alert-heading">'.__('warning').'!</h4>
+                '.$general.'
+                </div>';
+}
+
 $form = new Pretty_Form(array(
     'errors' => $errors,
     'template' => 'twitter_bootstrap',
 ));
 echo $form->open( Url::site('welcome/register'), array('class' => 'form-horizontal'));
-echo $form->legend(__('legend'));
+echo $form->legend(__('registration'));
 echo $form->input(array(
     'name' => 'user_name',
     'label' => 'login',
-    'attr' => array( ),
+    'attr' => array( 'class' => 'input-xlarge' ),
     'info' => __('your_login')
 ));
 
@@ -16,7 +32,28 @@ echo $form->input(array(
     'name' => 'email',
     'template' => 'input_for_mail',
     'label' => __('email_address'),
-    'attr' => array( ),
+    'attr' => array( 'class' => 'input-xlarge'),
+    'info' => __('valid_email_adrress')
+));
+
+echo $form->password(array(
+    'name' => 'pswd',
+    'label' => __('password'),
+    'attr' => array( 'class' => 'input-xlarge'),
+    'info' => __('at_least_6_characters')
+));
+
+echo $form->password(array(
+    'name' => 'pswd_confirmation',
+    'label' => __('password_confirmation'),
+    'attr' => array( 'class' => 'input-xlarge'),
+    'info' => __('at_least_6_characters')
+));
+
+echo $form->checkbox(array(
+    'name' => 'terms_of_use',
+    'label' => __('email_address'),
+    'attr' => array(),
     'info' => __('valid_email_adrress')
 ));
 
@@ -28,34 +65,4 @@ echo $form->form_action(array(
 echo $form->close();
 return;
 ?>
-<form class="form-horizontal" method="post" action"<?php echo Url::site('welcome/register');?>">
-    <fieldset>
-        <legend>Legend text</legend>
-        <div class="control-group">
-            <label class="control-label" for="input01">login</label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="input01" name="user_name">
-                <p class="help-block">Supporting help text</p>
-            </div>
-        </div>
-        <div class="control-group error">
-            <label class="control-label" for="input01">login</label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="input01" name="email">
-                <p class="help-block">Supporting help text</p>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="optionsCheckbox">Checkbox</label>
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="terms_of_use" id="optionsCheckbox" value="option1">
-                    Option one is this and that—be sure to include why it's great
-                </label>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary"><?php echo __('register');?></button>
-        </div>
-    </fieldset>
-</form>
+</div>
