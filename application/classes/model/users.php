@@ -21,7 +21,8 @@ class Model_Users extends Model
 
         if ( $this->exists(array('login', 'email')))
         {
-            $this->add_error('user', __('already_exists'));
+            $this->add_error('user_name', __('already_exists'));
+            $this->add_error('email', __('already_exists'));
             return FALSE;
         }
         $this->password = md5($this->password);

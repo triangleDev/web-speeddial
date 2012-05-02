@@ -1,5 +1,32 @@
 <?php
-var_dump($errors);
+$form = new Pretty_Form(array(
+    'errors' => $errors,
+    'template' => 'twitter_bootstrap',
+));
+echo $form->open( Url::site('welcome/register'), array('class' => 'form-horizontal'));
+echo $form->legend(__('legend'));
+echo $form->input(array(
+    'name' => 'user_name',
+    'label' => 'login',
+    'attr' => array( ),
+    'info' => __('your_login')
+));
+
+echo $form->input(array(
+    'name' => 'email',
+    'template' => 'input_for_mail',
+    'label' => __('email_address'),
+    'attr' => array( ),
+    'info' => __('valid_email_adrress')
+));
+
+echo $form->form_action(array(
+    'buttons' => array(
+        array('submit', __('register'), array( 'class' => 'btn btn-primary', 'type' => 'submit'))
+    )
+));
+echo $form->close();
+return;
 ?>
 <form class="form-horizontal" method="post" action"<?php echo Url::site('welcome/register');?>">
     <fieldset>

@@ -106,11 +106,6 @@ Kohana::modules(array(
 	'mybase' => MODPATH.'Kohana-my-base',
 	));
 
-/**
- * Set the routes. Each route must have a minimum of a name, a URI and a set of
- * defaults for the URI.
- */
-set_exception_handler(array('Error', 'handler'));
 
 Route::set('panel', 'panel(/<controller>(/<action>(/<id>)))',array(
         'id' => '\d+',
