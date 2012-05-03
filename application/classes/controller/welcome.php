@@ -20,5 +20,4 @@ class Controller_Welcome extends Controller_Core {
 
     }
 
-
 } // End Welcome
