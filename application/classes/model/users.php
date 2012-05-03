@@ -3,6 +3,19 @@
 class Model_Users extends Model
 {
 
+    const ROLE_GUEST = 1;
+    const ROLE_USER = 2;
+    const ROLE_ADMIN = 3;
+
+    public static function roles_collection($translation = FALSE)
+    {
+        return array(
+            self::ROLE_GUEST => $translation ? __('guest') : 'guest',
+            self::ROLE_USER => $translation ? __('user') : 'user',
+            self::ROLE_ADMIN => $translation ? __('admin') : 'admin',
+        );
+    }
+
     public function login()
     {
         $this->password = md5($this->password);
@@ -29,7 +42,8 @@ class Model_Users extends Model
 
         return TRUE;
     }
-    public  function validate_registration()
+
+    public function validate_registration()
     {
         if ( ! Valid::not_empty($this->login))
             $this->add_error('user_name', __('must_be_not_empty'));
@@ -58,8 +72,10 @@ class Model_Users extends Model
         $this->insert(array('login', 'email', 'password', 'api_key'));
         $this->api_key = uniqid();
         $this->password = md5($this->password);
+        $this->role_id = self::ROLE_USER;
 
         $result = $this->exec();
         return $result;
     }
+
 }
