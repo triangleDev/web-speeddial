@@ -1,6 +1,6 @@
-ALTER TABLE `users` ADD `role_id` INT NOT NULL DEFAULT '1' COMMENT 'role id' AFTER `id` 
+ALTER TABLE `users` ADD `role_id` INT NOT NULL DEFAULT '1' COMMENT 'role id' AFTER `id` ;
 
-UPDATE `speeddial`.`users` SET `role_id` = '1'
+UPDATE `speeddial`.`users` SET `role_id` = '1';
 
 CREATE TABLE IF NOT EXISTS `access_rules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

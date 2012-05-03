@@ -2,20 +2,6 @@
 
 class Model_Users extends Model
 {
-
-    const ROLE_GUEST = 1;
-    const ROLE_USER = 2;
-    const ROLE_ADMIN = 3;
-
-    public static function roles_collection($translation = FALSE)
-    {
-        return array(
-            self::ROLE_GUEST => $translation ? __('guest') : 'guest',
-            self::ROLE_USER => $translation ? __('user') : 'user',
-            self::ROLE_ADMIN => $translation ? __('admin') : 'admin',
-        );
-    }
-
     public function login()
     {
         $this->password = md5($this->password);
