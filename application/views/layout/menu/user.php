@@ -14,10 +14,10 @@
                         <li class="divider"></li>
                         <li><a href="#" class="show_categories"><i class="icon-folder-close"></i>categories</a></li>
                         <li class="divider"></li>
-                        <li><a href="<?php echo Url::site('panel/user/account_info');?>" class="account-info"><i class="icon-user"></i>account</a></li>
-                        <li><a href="<?php echo Url::site('panel/user/settings');?>" class="account-settings"><i class="icon-cog"></i>settings</a></li>
+                        <li><a href="<?php echo Url::site('user/account_info');?>" class="account-info"><i class="icon-user"></i>account</a></li>
+                        <li><a href="<?php echo Url::site('user/settings');?>" class="account-settings"><i class="icon-cog"></i>settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="<?php echo URL::site('panel/user/logout') ;?>"><i class="icon-off"></i>logout</a></li>
+                        <li><a href="<?php echo URL::site('user/logout') ;?>"><i class="icon-off"></i>logout</a></li>
                     </ul>
                 </li>
             </ul>

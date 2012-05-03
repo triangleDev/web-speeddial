@@ -34,8 +34,6 @@ class Controller_Admin_Admin extends Controller_Core {
                     rmdir_files($dir.$file);
                     }
                 }
-
-
             }
             if ( $dir !== Kohana::$cache_dir)
             {
