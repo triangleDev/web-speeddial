@@ -109,6 +109,11 @@ Kohana::modules(array(
 	'mybase' => MODPATH.'Kohana-my-base',
 	));
 
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')->defaults(array(
+    'directory' => 'admin',
+    'controller' => 'admin',
+    'action'     => 'index',
+));
 
 Route::set('panel', 'panel(/<controller>(/<action>(/<id>)))',array(
         'id' => '\d+',

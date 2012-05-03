@@ -8,7 +8,6 @@
 
 ?>
 
-
     <div class="container">
         <?php echo $content; ?>
     </div> <!-- /container -->
@@ -16,9 +15,3 @@
 <?php
     echo View::factory('layout/footer', get_defined_vars())->render();
 ?>
-
-
-
-
-
-
