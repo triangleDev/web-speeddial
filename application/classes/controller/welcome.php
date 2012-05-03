@@ -2,6 +2,8 @@
 
 class Controller_Welcome extends Controller_Core {
 
+    protected  $check_access = FALSE;
+
     public function action_index()
     {
         $this->register_css_file('impress/impress-demo');
