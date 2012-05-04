@@ -27,11 +27,12 @@ class Controller_Admin_Admin extends Controller_Core {
         if ($dh) {
             while($file = readdir($dh)) {
                 if (!in_array($file, array('.', '..'))) {
-                    if (is_file($dir.$file)) {
-                        unlink($dir.$file);
+                    $file = $dir.DIRECTORY_SEPARATOR.$file;
+                    if (is_file($file)) {
+                        unlink($file);
                     }
-                    else if (is_dir($dir.$file)) {
-                    rmdir_files($dir.$file);
+                    else if (is_dir($file)) {
+                        $this->rmdir_files($file . DIRECTORY_SEPARATOR);
                     }
                 }
             }
