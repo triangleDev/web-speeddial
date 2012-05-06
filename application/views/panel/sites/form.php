@@ -35,18 +35,14 @@ echo $form->input(array(
     ),
     'info' =>  __('must_be_valid_url')
 ));
-$categories = Model_Categories::find_all(array(
-    'user_id' => Auth::instance()->current_user()->id,
-))->records;
 
-$categories = Arr::unshift($categories, NULL, __('no_parent'));
 echo $form->select(array(
     'name' => 'parent_cat',
     'label' => __('select_a_parent_category'),
     'attr' => array(
         'class' => 'span3',
     ),
-    'buttons' => $categories,
+    'buttons' => Model_Categories::user_collection(Auth::instance()->current_user()->id),
 ));
 echo $form->form_action(array(
     'template' => 'buttons_only',

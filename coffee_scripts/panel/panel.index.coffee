@@ -18,8 +18,6 @@ $ ->
       $('button[type="submit"]', self).on 'click', (e)->
         e.preventDefault()
         form = $('form', self)
-        console.log form
-        console.log form.serialize()
         formData = form.serialize()
         $.ajax 
           url: form.attr('action'),

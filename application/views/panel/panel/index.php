@@ -28,12 +28,16 @@ $screenshorts = Model_Screenshorts::find_all(array(
                 <?php
                     $max = $screenshorts->total_count;
                     $success = 0;
-                        foreach($screenshorts->records as $item)
-                        {
-                            $status = Arr::get($item, 'status', Model_Screenshorts::STATUS_FAIL);
-                            if ($status == Model_Screenshorts::STATUS_GENERATED)
-                                ++$success;
-                        }
+                    $screenshorts_ = array();
+                    foreach($screenshorts->records as $item)
+                    {
+                        $status = Arr::get($item, 'status', Model_Screenshorts::STATUS_FAIL);
+                        if ($status == Model_Screenshorts::STATUS_GENERATED)
+                            ++$success;
+                        $site_id = Arr::get($item, 'url_id');
+                        $screenshorts_[$site_id][] = $item;
+                    }
+                    unset($screenshorts);
                     $progress = (100 / $max) *$success;
                     $progress = round($progress, 0);
                     $progress_info_class =  'progress-success';
@@ -56,7 +60,9 @@ $screenshorts = Model_Screenshorts::find_all(array(
 <div class="panel-content">
     <div class="sidebar">
         <div class="header">
-            sidebar <a class="close" title="hide sidebar">&times;</a>
+            <?php
+                echo __('categories');
+            ?> <a class="close" title="hide sidebar">&times;</a>
         </div>
         <!--Sidebar content-->
     </div>

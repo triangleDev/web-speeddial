@@ -21,8 +21,6 @@
           var form, formData;
           e.preventDefault();
           form = $('form', self);
-          console.log(form);
-          console.log(form.serialize());
           formData = form.serialize();
           return $.ajax({
             url: form.attr('action'),
