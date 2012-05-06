@@ -58,9 +58,12 @@
       sidebar.hide(500);
       return panelContent.css('width', '100%');
     };
-    $('a', sidebar).on('click', function(e) {
+    $('a.close', sidebar).on('click', function(e) {
       e.preventDefault();
       return hidePanel();
+    });
+    $('ul#cat_tree a').on('click', function(e) {
+      return e.preventDefault();
     });
     $('a.show_categories').on('click', function(e) {
       e.preventDefault();

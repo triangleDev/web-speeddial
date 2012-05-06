@@ -8,13 +8,14 @@ function print_categories($categories)
     foreach($categories as $key => $item)
     {
         echo '<li data-id="'.$key.'">';
-        echo $item['name'];
+        echo HTML::anchor('#',$item['name'],array('data-id' => $key));
         if ( $item['childs'])
             print_categories($item['childs']);
         echo '</li>';
     }
     echo '</ol>';
 }
+
 function build_childs(&$categories, $parent)
 {
     $reslut = array();
@@ -32,6 +33,7 @@ function build_childs(&$categories, $parent)
     }
     return $reslut;
 }
+
 function build_cat_tree($categories)
 {
     return array(
@@ -41,6 +43,7 @@ function build_cat_tree($categories)
         ),
     );
 }
+$current_category = NULL;
 $current_user = Auth::instance()->current_user();
 $categories = Model_Categories::find_all(array(
     'user_id' => $current_user->id,
@@ -50,10 +53,16 @@ $cat_struct = build_cat_tree($categories->records);
 
 $sites = Model_Sites::find_all( array(
     'user_id' => $current_user->id,
+    'category' => (int)$current_category,
 ));
-$sites_ids = Arr::pluck($sites->records, 'id' );
+$sites_  = array();
+foreach($sites->records as $item)
+{
+    $sites_[$item['id']] = $item;
+}
+
 $screenshorts = Model_Screenshorts::find_all(array(
-    'url_id' => $sites_ids,
+    'url_id' => Arr::pluck($sites->records, 'id' ),
 ));
 ?>
 <div class="alert alert-block">
@@ -79,6 +88,7 @@ $screenshorts = Model_Screenshorts::find_all(array(
                         $status = Arr::get($item, 'status', Model_Screenshorts::STATUS_FAIL);
                         if ($status == Model_Screenshorts::STATUS_GENERATED)
                             ++$success;
+
                         $site_id = Arr::get($item, 'url_id');
                         $screenshorts_[$site_id][] = $item;
                     }
@@ -109,11 +119,11 @@ $screenshorts = Model_Screenshorts::find_all(array(
                 echo __('categories');
             ?> <a class="close" title="hide sidebar">&times;</a>
             <?php
-                echo '<ul>';
+                echo '<ul class="cat_tree">';
                     foreach($cat_struct as $key => $item)
                     {
                         echo '<li data-id="'.$key.'">';
-                            echo $item['name'];
+                            echo HTML::anchor('#',$item['name'],array('data-id' => $key));
                             if ( $item['childs'])
                                 print_categories($item['childs']);
                         echo '</li>';
@@ -123,7 +133,34 @@ $screenshorts = Model_Screenshorts::find_all(array(
         </div>
         <!--Sidebar content-->
     </div>
-    <div class="body-content">d vvv
+    <div class="body-content">
+        <ul class="thumbnails">
+            <?php
+                foreach($sites_ as $item)
+                {
+                    echo '<li class="span3">';
+                    $img = Arr::get($screenshorts_[$item['id']],0);
+                    $status = (int)$img['status'];
+                    $img_url = URL::base(TRUE,TRUE).'screenshorts/'.$img['file'];
+                    if ( $status != Model_Screenshorts::STATUS_GENERATED)
+                    {
+                        $width = $img['width'];
+                        $height= $img['height'];
+                        $text = __('in_queue');
+                        if ($status == Model_Screenshorts::STATUS_IN_PROGRESS)
+                            $text = __('in_progress');
+                        else if ( $status == Model_Screenshorts::STATUS_FAIL)
+                            $text = __('fialed');
+                        $img_url = 'http://placehold.it/'.$width.'x'.$height.'&text=' . $text;
+                    }
+                    $img_tag = '<img src="'.$img_url.'" alt="">';
+                        echo HTML::anchor($item['link'],$img_tag, array(
+                            'class' => 'thumbnail','target' => '_blank'
+                        ));
+                    echo '</li>';
+                }
+            ?>
+        </ul>
         <!--Body content-->
     </div>
 </div>

@@ -49,9 +49,12 @@ $ ->
     sidebar.hide 500
     panelContent.css 'width', '100%'
 
-  $('a', sidebar).on 'click', (e)->
+  $('a.close', sidebar).on 'click', (e)->
     e.preventDefault()
     hidePanel()
+
+  $('ul#cat_tree a').on 'click', (e)->
+    e.preventDefault()
 
   $('a.show_categories').on 'click', (e)->
     e.preventDefault()
