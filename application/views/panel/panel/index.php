@@ -8,7 +8,7 @@ $sites = Model_Sites::find_all( array(
 ));
 $sites_ids = Arr::pluck($sites->records, 'id' );
 $screenshorts = Model_Screenshorts::find_all(array(
-    'url_id' => $sites_ids
+    'url_id' => $sites_ids,
 ));
 ?>
 <div class="alert alert-block">
