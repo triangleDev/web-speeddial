@@ -27,4 +27,29 @@ class Model_Sites extends Model
             ->set($params)
             ->where('id', '=', $id)->execute();
     }
+
+    public function add_site()
+    {
+        if ( ! Valid::url($this->link))
+        {
+            $this->add_error('url', __('must_be_valid_url'));
+            return FALSE;
+        }
+        if ( isset($this->id))
+        {
+            ///update
+            //$this->
+            retrun;
+        }
+        $this->insert(array('title', 'user_id', 'link', 'category'));
+        $result = $this->exec();
+        if ( ! $result)
+            return $result;
+
+        $site_id = $this->last_inserted_id;
+        $screenshort = new Model_Screenshorts();
+        return $screenshort->add($site_id);
+
+
+    }
 }

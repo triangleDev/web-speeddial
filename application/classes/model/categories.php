@@ -2,7 +2,7 @@
 
 class Model_Categories extends Model
 {
-    private $db_table = 'categories';
+    ///private $db_table = 'categories';
 
     public function delete($id)
     {
@@ -11,4 +11,5 @@ class Model_Categories extends Model
 
         return DB::delete($this->db_table)->where('id' , '=', $id)->execute();
     }
+
 }

@@ -56,4 +56,17 @@ class Model_Screenshorts extends Model
         ))
             ->where('screenshorts.id', '=', $id)->execute();
     }
+
+    public function add($site_id, $params = array())
+    {
+        $this->update_params(Arr::merge($params,array(
+            'status' => self::STATUS_NEED_SCREENSHORT,
+            'type' => self::TYPE_THUMB,
+            'url_id' => $site_id,
+            'width' => 400,
+            'height' => 350,
+        )));
+        $this->insert(array('width','height','status','type','url_id'));
+        return $this->exec();
+    }
 }
