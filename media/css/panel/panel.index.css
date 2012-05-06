@@ -1,3 +1,6 @@
+ul, ol {
+    list-style: none;
+}
 
 .summary-info {
     width: 100%;
