@@ -93,8 +93,16 @@ $screenshorts = Model_Screenshorts::find_all(array(
                         $screenshorts_[$site_id][] = $item;
                     }
                     unset($screenshorts);
-                    $progress = (100 / $max) *$success;
-                    $progress = round($progress, 0);
+                    if ( ! $max)
+                    {
+                        $progress = $max;
+                    }
+                    else
+                    {
+                        $progress = (100 / $max) *$success;
+                        $progress = round($progress, 0);
+                    }
+
                     $progress_info_class =  'progress-success';
                     if ( $progress < 50)
                         $progress_info_class = 'progress-danger';
